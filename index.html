@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTCOE703B: Distributed Systems - Interactive Quiz & Study Portal</title>
+    <meta name="description" content="BTCOE703B: Distributed Systems Interactive Quiz & Study Portal - SSVPS COE Dhule. Prepared by Himesh Raghuwanshi.">
+    <meta name="author" content="Himesh Raghuwanshi">
+    <meta property="og:title" content="Distributed Systems Interactive Quiz & Study Portal">
+    <meta property="og:description" content="Master Distributed Systems with 30 MCQs, detailed Hinglish explanations, and visual diagrams.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://himesh-raghuwanshi.vercel.app/">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateX(4px);
+        }
+        .diagram-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .hinglish-box {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-left: 4px solid #f59e0b;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col">
+
+    <!-- College Header -->
+    <header class="bg-gradient-to-r from-indigo-900 via-blue-900 to-indigo-950 text-white shadow-lg border-b-4 border-amber-400">
+        <div class="max-w-7xl mx-auto px-4 py-5 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="bg-amber-400 text-indigo-950 p-3 rounded-xl font-black text-2xl shadow-md flex items-center justify-center w-14 h-14">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs uppercase tracking-widest text-amber-300 font-semibold block">SSVPS Bapusaheb Shivajirao Deore College of Engineering, Dhule</span>
+                        <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Distributed Systems (BTCOE703B)</h1>
+                        <p class="text-xs sm:text-sm text-blue-200">Department of Computer Engineering • Final Year (A & B) Question Bank Portal</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- Author links -->
+                    <div class="flex items-center gap-2">
+                        <a href="https://github.com/himesh112005" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-xl text-xs font-semibold backdrop-blur-sm border border-white/15 transition shadow-sm" title="GitHub Profile: @himesh112005">
+                            <i class="fa-brands fa-github text-sm"></i>
+                            <span class="hidden sm:inline">GitHub</span>
+                        </a>
+                        <a href="https://himesh-raghuwanshi.vercel.app/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-indigo-950 px-3 py-2 rounded-xl text-xs font-bold transition shadow-sm" title="Himesh Raghuwanshi Portfolio">
+                            <i class="fa-solid fa-briefcase"></i>
+                            <span>Portfolio</span>
+                        </a>
+                    </div>
+                    <!-- Total Score Display -->
+                    <div class="flex items-center gap-3 bg-white/10 px-4 py-2.5 rounded-xl backdrop-blur-sm border border-white/15">
+                        <div class="text-right">
+                            <div class="text-xs text-blue-200">Total Score</div>
+                            <div class="text-xl font-bold text-amber-300"><span id="score-display">0</span> / <span id="attempted-display">0</span></div>
+                        </div>
+                        <button onclick="resetQuiz()" class="ml-2 bg-rose-500/20 hover:bg-rose-500 text-rose-200 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition border border-rose-400/30">
+                            <i class="fa-solid fa-rotate-right mr-1"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation Tabs -->
+    <div class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex overflow-x-auto no-scrollbar py-3 gap-2 sm:gap-4" id="main-tabs">
+                <button onclick="switchMainTab('mcq-section')" id="tab-mcq-section" class="px-5 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 bg-indigo-600 text-white shadow-sm transition whitespace-nowrap">
+                    <i class="fa-solid fa-list-check"></i> Interactive MCQ Quiz (30 Qs)
+                </button>
+                <button onclick="switchMainTab('descriptive-section')" id="tab-descriptive-section" class="px-5 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200 transition whitespace-nowrap">
+                    <i class="fa-solid fa-diagram-project text-amber-600"></i> Descriptive Q&A + Diagrams + Hinglish (Q1 - Q5)
+                </button>
+                <button onclick="jumpToQ4()" class="px-5 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200 transition whitespace-nowrap ml-auto">
+                    <i class="fa-solid fa-star text-amber-500"></i> Direct Jump: Q4 (DSM Structure & Diagrams)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 flex-grow w-full">
+
+        <!-- ================= MCQ QUIZ SECTION ================= -->
+        <section id="mcq-section" class="space-y-6">
+            <!-- Filter & Controls Bar -->
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400 mr-1">Filter by Unit:</span>
+                    <button onclick="filterMCQs('ALL')" id="filter-ALL" class="co-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition">
+                        All Questions (30)
+                    </button>
+                    <button onclick="filterMCQs('CO-01')" id="filter-CO-01" class="co-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                        CO-01: Fundamentals & Message Passing (10)
+                    </button>
+                    <button onclick="filterMCQs('CO-02')" id="filter-CO-02" class="co-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                        CO-02: Remote Procedure Call - RPC (10)
+                    </button>
+                    <button onclick="filterMCQs('CO-03')" id="filter-CO-03" class="co-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                        CO-03: DSM & Synchronization (10)
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                    <button onclick="revealAllExplanations()" class="text-xs font-semibold px-3.5 py-2 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 transition">
+                        <i class="fa-solid fa-eye mr-1"></i> Show All Answers & Hinglish Notes
+                    </button>
+                </div>
+            </div>
+
+            <!-- Questions Container -->
+            <div id="mcq-container" class="space-y-6">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- ================= DESCRIPTIVE SECTION (WITH Q4 SPECIAL) ================= -->
+        <section id="descriptive-section" class="hidden space-y-8">
+            
+            <!-- Intro Banner -->
+            <div class="bg-gradient-to-r from-amber-500 to-orange-600 rounded-2xl p-6 text-white shadow-md flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                    <span class="px-2.5 py-1 bg-black/20 rounded-full text-xs font-bold uppercase tracking-wider">CO-03 Descriptive Question Bank (6 Marks Each)</span>
+                    <h2 class="text-2xl font-extrabold mt-2">Detailed University Answers + Architecture Diagrams + Hinglish Explanations</h2>
+                    <p class="text-amber-100 text-sm mt-1">Exam me poore 6 marks lane ke liye step-by-step points, neat diagrams, aur easy Hinglish explanation niche diya gaya hai.</p>
+                </div>
+                <div class="flex flex-wrap gap-2 shrink-0">
+                    <a href="#desc-q1" class="px-3 py-1.5 bg-white/20 hover:bg-white/30 rounded-lg text-xs font-bold backdrop-blur-sm">Q1: DFS Features</a>
+                    <a href="#desc-q2" class="px-3 py-1.5 bg-white/20 hover:bg-white/30 rounded-lg text-xs font-bold backdrop-blur-sm">Q2: Deadlock</a>
+                    <a href="#desc-q3" class="px-3 py-1.5 bg-white/20 hover:bg-white/30 rounded-lg text-xs font-bold backdrop-blur-sm">Q3: RPC Mechanism</a>
+                    <a href="#desc-q4" class="px-3 py-1.5 bg-white text-orange-700 rounded-lg text-xs font-extrabold shadow-sm">★ Q4: Structure of DSM</a>
+                    <a href="#desc-q5" class="px-3 py-1.5 bg-white/20 hover:bg-white/30 rounded-lg text-xs font-bold backdrop-blur-sm">Q5: DSM Issues</a>
+                </div>
+            </div>
+
+            <!-- ================= QUESTION 4 (FEATURED HIGHLIGHT AS REQUESTED) ================= -->
+            <div id="desc-q4" class="bg-white rounded-2xl shadow-xl border-2 border-indigo-600 overflow-hidden scroll-mt-20">
+                <div class="bg-indigo-600 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-amber-400 text-indigo-950 font-black px-3 py-1 rounded-lg text-sm">QUESTION 4 (SPECIAL FOCUS)</span>
+                        <h3 class="text-lg sm:text-xl font-bold">Explain Structure of Distributed Shared Memory (DSM).</h3>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-semibold">
+                        <span class="bg-indigo-800 px-2.5 py-1 rounded">Course Outcome: CO-03</span>
+                        <span class="bg-indigo-800 px-2.5 py-1 rounded">Bloom's Level: BL2</span>
+                        <span class="bg-amber-400 text-indigo-950 px-2.5 py-1 rounded font-bold">6 Marks</span>
+                    </div>
+                </div>
+
+                <div class="p-6 sm:p-8 space-y-8">
+                    <!-- 1. Introduction -->
+                    <div>
+                        <h4 class="text-base font-extrabold text-indigo-900 uppercase tracking-wider flex items-center gap-2 border-b pb-2 border-slate-200">
+                            <i class="fa-solid fa-book-open text-indigo-600"></i> 1. Definition & Overview of DSM
+                        </h4>
+                        <p class="mt-3 text-slate-700 leading-relaxed">
+                            <strong>Distributed Shared Memory (DSM)</strong> is an abstraction used in distributed systems that allows physically separate computing nodes (which only have their own private local memory and communicate via a network) to share a single, unified logical address space. Even though there is no physically shared memory hardware, the DSM runtime layer creates an illusion for application programmers that all processes are reading from and writing to a common global memory.
+                        </p>
+                        <div class="mt-3 hinglish-box p-4 rounded-xl text-sm text-amber-950">
+                            <strong><i class="fa-solid fa-language mr-1 text-amber-600"></i> Hinglish Explanation (Introduction):</strong><br>
+                            Distributed Shared Memory (DSM) ek aisa smart concept (abstraction) hai jisme alag-alag computers (nodes) ke paas apni khud ki private local RAM hoti hai, par DSM software un sabko mila kar ek <strong>Single Global Shared Memory</strong> ka illusion (ehsaas) deta hai. Programmer ko lagta hai ki wo ek hi common memory me read/write kar raha hai, jabki background me DSM khud network messages ke through data transfer sambhalta hai!
+                        </div>
+                    </div>
+
+                    <!-- 2. General Architecture Diagram of DSM -->
+                    <div>
+                        <h4 class="text-base font-extrabold text-indigo-900 uppercase tracking-wider flex items-center gap-2 border-b pb-2 border-slate-200">
+                            <i class="fa-solid fa-sitemap text-indigo-600"></i> 2. Architectural Diagram of Distributed Shared Memory
+                        </h4>
+                        <p class="text-xs text-slate-500 mt-1 mb-4">You must draw this diagram in your exam before explaining the 3 structures of DSM space:</p>
+                        
+                        <div class="diagram-container bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-6 flex flex-col items-center">
+                            <svg viewBox="0 0 850 420" class="w-full max-w-4xl">
+                                <defs>
+                                    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#4f46e5" />
+                                    </marker>
+                                    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#d97706" />
+                                    </marker>
+                                </defs>
+
+                                <!-- Top Box: Globally Shared Virtual Address Space -->
+                                <rect x="75" y="15" width="700" height="85" rx="12" fill="#eef2ff" stroke="#4f46e5" stroke-width="2.5" stroke-dasharray="6,4"/>
+                                <text x="425" y="40" text-anchor="middle" font-size="15" font-weight="bold" fill="#312e81">GLOBALLY SHARED VIRTUAL ADDRESS SPACE (Illusion / Abstraction)</text>
+                                
+                                <!-- Memory Blocks inside Global Space -->
+                                <g transform="translate(115, 52)">
+                                    <rect x="0" y="0" width="95" height="34" rx="5" fill="#c7d2fe" stroke="#4f46e5" stroke-width="1.5"/>
+                                    <text x="47" y="21" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e1b4b">Block / Page 0</text>
+                                    
+                                    <rect x="105" y="0" width="95" height="34" rx="5" fill="#c7d2fe" stroke="#4f46e5" stroke-width="1.5"/>
+                                    <text x="152" y="21" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e1b4b">Block / Page 1</text>
+
+                                    <rect x="210" y="0" width="95" height="34" rx="5" fill="#fde68a" stroke="#d97706" stroke-width="1.5"/>
+                                    <text x="257" y="21" text-anchor="middle" font-size="12" font-weight="bold" fill="#78350f">Block / Page 2</text>
+
+                                    <rect x="315" y="0" width="95" height="34" rx="5" fill="#fde68a" stroke="#d97706" stroke-width="1.5"/>
+                                    <text x="362" y="21" text-anchor="middle" font-size="12" font-weight="bold" fill="#78350f">Block / Page 3</text>
+
+                                    <rect x="420" y="0" width="95" height="34" rx="5" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.5"/>
+                                    <text x="467" y="21" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">Block / Page 4</text>
+
+                                    <rect x="525" y="0" width="95" height="34" rx="5" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.5"/>
+                                    <text x="572" y="21" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">Block / Page 5</text>
+                                </g>
+
+                                <!-- Mapping Arrows from Local Memory to Global Space -->
+                                <line x1="175" y1="155" x2="175" y2="105" stroke="#4f46e5" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="4,2"/>
+                                <line x1="425" y1="155" x2="425" y2="105" stroke="#d97706" stroke-width="2" marker-end="url(#arrow-amber)" stroke-dasharray="4,2"/>
+                                <line x1="675" y1="155" x2="675" y2="105" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="4,2"/>
+
+                                <text x="425" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#64748b">▲ Software DSM Mapping Layer (Maps Local Memory to Global Space) ▲</text>
+
+                                <!-- Node 1 -->
+                                <g transform="translate(75, 160)">
+                                    <rect x="0" y="0" width="200" height="170" rx="10" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+                                    <rect x="0" y="0" width="200" height="32" rx="10" fill="#1e293b"/>
+                                    <text x="100" y="21" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Node 1 (Machine 1)</text>
+                                    
+                                    <rect x="20" y="45" width="160" height="35" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+                                    <text x="100" y="67" text-anchor="middle" font-size="12" font-weight="bold" fill="#334155">CPU 1 (Processes)</text>
+
+                                    <rect x="20" y="92" width="160" height="35" rx="6" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.5"/>
+                                    <text x="100" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e1b4b">Local Memory 1 (P0, P1)</text>
+
+                                    <rect x="20" y="135" width="160" height="25" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+                                    <text x="100" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#92400e">DSM Manager / Stub</text>
+                                </g>
+
+                                <!-- Node 2 -->
+                                <g transform="translate(325, 160)">
+                                    <rect x="0" y="0" width="200" height="170" rx="10" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+                                    <rect x="0" y="0" width="200" height="32" rx="10" fill="#1e293b"/>
+                                    <text x="100" y="21" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Node 2 (Machine 2)</text>
+                                    
+                                    <rect x="20" y="45" width="160" height="35" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+                                    <text x="100" y="67" text-anchor="middle" font-size="12" font-weight="bold" fill="#334155">CPU 2 (Processes)</text>
+
+                                    <rect x="20" y="92" width="160" height="35" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+                                    <text x="100" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#78350f">Local Memory 2 (P2, P3)</text>
+
+                                    <rect x="20" y="135" width="160" height="25" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+                                    <text x="100" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#92400e">DSM Manager / Stub</text>
+                                </g>
+
+                                <!-- Node 3 -->
+                                <g transform="translate(575, 160)">
+                                    <rect x="0" y="0" width="200" height="170" rx="10" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+                                    <rect x="0" y="0" width="200" height="32" rx="10" fill="#1e293b"/>
+                                    <text x="100" y="21" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Node 3 (Machine 3)</text>
+                                    
+                                    <rect x="20" y="45" width="160" height="35" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+                                    <text x="100" y="67" text-anchor="middle" font-size="12" font-weight="bold" fill="#334155">CPU 3 (Processes)</text>
+
+                                    <rect x="20" y="92" width="160" height="35" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+                                    <text x="100" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">Local Memory 3 (P4, P5)</text>
+
+                                    <rect x="20" y="135" width="160" height="25" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+                                    <text x="100" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#92400e">DSM Manager / Stub</text>
+                                </g>
+
+                                <!-- Network Bus Connections -->
+                                <line x1="175" y1="330" x2="175" y2="370" stroke="#334155" stroke-width="3"/>
+                                <line x1="425" y1="330" x2="425" y2="370" stroke="#334155" stroke-width="3"/>
+                                <line x1="675" y1="330" x2="675" y2="370" stroke="#334155" stroke-width="3"/>
+
+                                <!-- Interconnection Network Bar -->
+                                <rect x="65" y="365" width="720" height="38" rx="8" fill="#0f172a"/>
+                                <text x="425" y="389" text-anchor="middle" font-size="13" font-weight="bold" fill="#38bdf8">HIGH-SPEED MESSAGE-PASSING INTERCONNECTION NETWORK (LAN / WAN)</text>
+                            </svg>
+                            <span class="text-xs font-semibold text-slate-500 mt-2">Figure 4.1: General Architecture of a Distributed Shared Memory (DSM) System</span>
+                        </div>
+                    </div>
+
+                    <!-- 3. Detailed Classification of DSM Structure (Core of Q4) -->
+                    <div class="space-y-6">
+                        <h4 class="text-base font-extrabold text-indigo-900 uppercase tracking-wider flex items-center gap-2 border-b pb-2 border-slate-200">
+                            <i class="fa-solid fa-layer-group text-indigo-600"></i> 3. Three Approaches to Structure the Shared Memory Space in DSM
+                        </h4>
+                        <p class="text-slate-700 text-sm">
+                            The structure of the shared memory space defines how the global shared data is organized, laid out, and accessed by processes. In Distributed Systems, the shared memory space of a DSM system is structured in <strong>three primary ways</strong>:
+                        </p>
+
+                        <!-- Visual Comparison Diagram of the 3 Structures -->
+                        <div class="diagram-container bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-6">
+                            <svg viewBox="0 0 860 300" class="w-full">
+                                <!-- Box 1: Unstructured / Byte-Stream / Page-Based -->
+                                <g transform="translate(15, 10)">
+                                    <rect x="0" y="0" width="260" height="275" rx="10" fill="#ffffff" stroke="#6366f1" stroke-width="2"/>
+                                    <rect x="0" y="0" width="260" height="36" rx="10" fill="#4f46e5"/>
+                                    <text x="130" y="23" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">1. No Structuring (Page-Based)</text>
+                                    
+                                    <text x="130" y="56" text-anchor="middle" font-size="11" fill="#475569">Linear Array of Bytes / Fixed Pages</text>
+                                    
+                                    <!-- Continuous Memory Strip -->
+                                    <rect x="35" y="70" width="190" height="155" rx="4" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5"/>
+                                    <line x1="35" y1="108" x2="225" y2="108" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="4,2"/>
+                                    <line x1="35" y1="146" x2="225" y2="146" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="4,2"/>
+                                    <line x1="35" y1="184" x2="225" y2="184" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="4,2"/>
+                                    
+                                    <text x="130" y="93" text-anchor="middle" font-size="11" font-weight="bold" fill="#312e81">Page 0 (e.g., 4 KB Fixed)</text>
+                                    <text x="130" y="131" text-anchor="middle" font-size="11" font-weight="bold" fill="#312e81">Page 1 (e.g., 4 KB Fixed)</text>
+                                    <text x="130" y="169" text-anchor="middle" font-size="11" font-weight="bold" fill="#312e81">Page 2 (e.g., 4 KB Fixed)</text>
+                                    <text x="130" y="207" text-anchor="middle" font-size="11" font-weight="bold" fill="#312e81">Page 3 (e.g., 4 KB Fixed)</text>
+                                    
+                                    <text x="130" y="250" text-anchor="middle" font-size="11" font-weight="bold" fill="#4338ca">Granularity: Fixed OS Pages</text>
+                                    <text x="130" y="265" text-anchor="middle" font-size="10" fill="#64748b">(Ex: IVY System, Mirage)</text>
+                                </g>
+
+                                <!-- Box 2: Structuring by Data Type / Shared Variables -->
+                                <g transform="translate(300, 10)">
+                                    <rect x="0" y="0" width="260" height="275" rx="10" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+                                    <rect x="0" y="0" width="260" height="36" rx="10" fill="#d97706"/>
+                                    <text x="130" y="23" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">2. Structured by Data-Type</text>
+                                    
+                                    <text x="130" y="56" text-anchor="middle" font-size="11" fill="#475569">Shared Variables &amp; Tuple Space</text>
+
+                                    <rect x="25" y="75" width="210" height="38" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+                                    <text x="130" y="99" text-anchor="middle" font-size="11" font-weight="bold" fill="#78350f">shared int count = 10;</text>
+
+                                    <rect x="25" y="125" width="210" height="38" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+                                    <text x="130" y="149" text-anchor="middle" font-size="11" font-weight="bold" fill="#78350f">Tuple: ("emp", 104, 45000.0)</text>
+
+                                    <rect x="25" y="175" width="210" height="38" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+                                    <text x="130" y="199" text-anchor="middle" font-size="11" font-weight="bold" fill="#78350f">shared float matrix[10][10];</text>
+
+                                    <text x="130" y="250" text-anchor="middle" font-size="11" font-weight="bold" fill="#b45309">Granularity: Individual Variables</text>
+                                    <text x="130" y="265" text-anchor="middle" font-size="10" fill="#64748b">(Ex: Munin, Midway, Linda)</text>
+                                </g>
+
+                                <!-- Box 3: Structuring as a Database / Object Space -->
+                                <g transform="translate(585, 10)">
+                                    <rect x="0" y="0" width="260" height="275" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+                                    <rect x="0" y="0" width="260" height="36" rx="10" fill="#16a34a"/>
+                                    <text x="130" y="23" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">3. Object / Database Structure</text>
+                                    
+                                    <text x="130" y="56" text-anchor="middle" font-size="11" fill="#475569">Encapsulated Objects (Data + Methods)</text>
+
+                                    <!-- Object 1 -->
+                                    <g transform="translate(25, 72)">
+                                        <rect x="0" y="0" width="98" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+                                        <text x="49" y="20" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Object A</text>
+                                        <line x1="8" y1="26" x2="90" y2="26" stroke="#16a34a"/>
+                                        <text x="49" y="42" text-anchor="middle" font-size="9" fill="#166534">Private Data</text>
+                                        <text x="49" y="57" text-anchor="middle" font-size="9" font-weight="bold" fill="#15803d">+ get() / set()</text>
+                                    </g>
+
+                                    <!-- Object 2 -->
+                                    <g transform="translate(137, 72)">
+                                        <rect x="0" y="0" width="98" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+                                        <text x="49" y="20" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Object B</text>
+                                        <line x1="8" y1="26" x2="90" y2="26" stroke="#16a34a"/>
+                                        <text x="49" y="42" text-anchor="middle" font-size="9" fill="#166534">Private Data</text>
+                                        <text x="49" y="57" text-anchor="middle" font-size="9" font-weight="bold" fill="#15803d">+ update()</text>
+                                    </g>
+
+                                    <!-- Object 3 -->
+                                    <g transform="translate(65, 152)">
+                                        <rect x="0" y="0" width="130" height="65" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+                                        <text x="65" y="19" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">Shared Object C</text>
+                                        <line x1="10" y1="25" x2="120" y2="25" stroke="#16a34a"/>
+                                        <text x="65" y="41" text-anchor="middle" font-size="9" fill="#166534">Encapsulated State</text>
+                                        <text x="65" y="55" text-anchor="middle" font-size="9" font-weight="bold" fill="#15803d">+ invokeMethod()</text>
+                                    </g>
+
+                                    <text x="130" y="250" text-anchor="middle" font-size="11" font-weight="bold" fill="#15803d">Granularity: Complete Objects</text>
+                                    <text x="130" y="265" text-anchor="middle" font-size="10" fill="#64748b">(Ex: Orca, Clouds, Linda DB)</text>
+                                </g>
+                            </svg>
+                            <div class="text-center text-xs font-semibold text-slate-500 mt-2">Figure 4.2: Three Structural Models of Shared Memory Space in DSM</div>
+                        </div>
+
+                        <!-- Detailed Breakdown of Each of the 3 Structures -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Type 1 -->
+                            <div class="bg-indigo-50/60 border border-indigo-200 rounded-xl p-5 flex flex-col justify-between">
+                                <div>
+                                    <span class="bg-indigo-600 text-white text-xs font-bold px-2.5 py-1 rounded">Structure 1</span>
+                                    <h5 class="text-base font-extrabold text-indigo-950 mt-2">1. No Structuring (Unstructured / Byte-Stream / Page-Based)</h5>
+                                    <ul class="mt-3 space-y-2 text-sm text-slate-700 list-disc pl-4">
+                                        <li><strong>Concept:</strong> The shared memory space is treated simply as an unstructured linear array of bytes or words, identical to traditional physical RAM.</li>
+                                        <li><strong>Mechanism:</strong> The memory is divided into fixed-size equal blocks called <strong>Pages</strong> (e.g., 1 KB, 4 KB, or 8 KB) managed by the Operating System's Virtual Memory (MMU) hardware using page faults.</li>
+                                        <li><strong>Advantage:</strong> Allows any standard sequential/shared-memory program to run without changing data types.</li>
+                                        <li><strong>Disadvantage:</strong> Suffers from <em>False Sharing</em> because unrelated variables may sit on the same large page.</li>
+                                        <li><strong>Example Systems:</strong> IVY, Mirage, Clouds.</li>
+                                    </ul>
+                                </div>
+                                <div class="mt-4 hinglish-box p-3 rounded-lg text-xs text-amber-950">
+                                    <strong>Hinglish Me Samjho:</strong><br>
+                                    Isme shared memory ko bilkul normal RAM ki tarah ek seedhi byte-array (linear memory) maana jata hai. Isko barabar size ke <strong>Fixed Pages (jaise 4KB)</strong> me baant dete hain. Jab kisi process ko data chahiye hota hai aur wo local memory me nahi milta, toh <em>Page Fault</em> aata hai aur network se poora page uth kar aa jata hai.
+                                </div>
+                            </div>
+
+                            <!-- Type 2 -->
+                            <div class="bg-amber-50/60 border border-amber-200 rounded-xl p-5 flex flex-col justify-between">
+                                <div>
+                                    <span class="bg-amber-600 text-white text-xs font-bold px-2.5 py-1 rounded">Structure 2</span>
+                                    <h5 class="text-base font-extrabold text-amber-950 mt-2">2. Structuring by Data Type (Shared Variables)</h5>
+                                    <ul class="mt-3 space-y-2 text-sm text-slate-700 list-disc pl-4">
+                                        <li><strong>Concept:</strong> Instead of raw pages, the shared memory is structured as a collection of language-level <strong>shared variables, structs, or data structures</strong> declared with special keywords (like <code>shared</code>).</li>
+                                        <li><strong>Mechanism:</strong> Granularity is variable-sized—matching the exact data type being shared. Only the modified variable is transmitted over the network.</li>
+                                        <li><strong>Advantage:</strong> Completely eliminates or drastically reduces <em>False Sharing</em> and reduces network traffic.</li>
+                                        <li><strong>Example Systems:</strong> Munin, Midway.</li>
+                                    </ul>
+                                </div>
+                                <div class="mt-4 hinglish-box p-3 rounded-lg text-xs text-amber-950">
+                                    <strong>Hinglish Me Samjho:</strong><br>
+                                    Poore 4KB ke page ko bhejne ke bajaye, yahan memory ko <strong>Program Variables aur Data Types</strong> (jaise <code>shared int x</code>, arrays, structs) ke hisaab se structure kiya jata hai. Fayda ye hai ki agar ek chota variable badla, toh sirf wahi network par jayega, jisse <em>False Sharing</em> ki problem khatam ho jati hai!
+                                </div>
+                            </div>
+
+                            <!-- Type 3 -->
+                            <div class="bg-emerald-50/60 border border-emerald-200 rounded-xl p-5 flex flex-col justify-between">
+                                <div>
+                                    <span class="bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded">Structure 3</span>
+                                    <h5 class="text-base font-extrabold text-emerald-950 mt-2">3. Structuring as a Database / Object-Based DSM</h5>
+                                    <ul class="mt-3 space-y-2 text-sm text-slate-700 list-disc pl-4">
+                                        <li><strong>Concept:</strong> The shared memory space is structured Either as an associative database of tuples (<strong>Tuple Space</strong>) or as a collection of encapsulated <strong>Objects</strong>.</li>
+                                        <li><strong>Mechanism:</strong> Processes cannot directly touch raw memory addresses. In <em>Linda</em>, processes use <code>out()</code>, <code>in()</code>, and <code>rd()</code> on tuples. In <em>Orca</em>, processes invoke synchronized methods on shared objects.</li>
+                                        <li><strong>Advantage:</strong> Automatic synchronization and clean modular protection.</li>
+                                        <li><strong>Example Systems:</strong> Linda (Tuple Space), Orca (Shared Objects).</li>
+                                    </ul>
+                                </div>
+                                <div class="mt-4 hinglish-box p-3 rounded-lg text-xs text-amber-950">
+                                    <strong>Hinglish Me Samjho:</strong><br>
+                                    Is model me memory ko ek <strong>Database (Tuple Space)</strong> ya <strong>OOP Objects</strong> ki tarah banaya jata hai. Koi bhi process seedha memory address chhed nahi sakta; data access karne ke liye Object ke functions (methods) call karne padte hain (jaise Orca me) ya Tuple queries (jaise Linda me) lagani padti hain.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Summary Table for Exam -->
+                        <div class="overflow-x-auto pt-2">
+                            <table class="w-full text-left border-collapse border border-slate-200 text-xs sm:text-sm rounded-xl overflow-hidden">
+                                <thead class="bg-slate-800 text-white">
+                                    <tr>
+                                        <th class="p-3 border border-slate-700">Feature / Parameter</th>
+                                        <th class="p-3 border border-slate-700">1. Unstructured (Page-Based)</th>
+                                        <th class="p-3 border border-slate-700">2. Structured by Data-Type</th>
+                                        <th class="p-3 border border-slate-700">3. Object / Database Structured</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200 bg-white">
+                                    <tr>
+                                        <td class="p-3 font-bold bg-slate-50">Basic Unit (Granularity)</td>
+                                        <td class="p-3">Fixed-size OS Page (e.g., 4 KB)</td>
+                                        <td class="p-3">Shared Variables / Data Structures</td>
+                                        <td class="p-3">Encapsulated Objects or Tuples</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-bold bg-slate-50">Access Method</td>
+                                        <td class="p-3">Direct Memory Read/Write via MMU</td>
+                                        <td class="p-3">Compiler-assisted Variable Access</td>
+                                        <td class="p-3">Method Invocation / Tuple Operations</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-bold bg-slate-50">False Sharing Risk</td>
+                                        <td class="p-3 text-rose-600 font-semibold">High (Due to large fixed pages)</td>
+                                        <td class="p-3 text-emerald-600 font-semibold">Low / Eliminated</td>
+                                        <td class="p-3 text-emerald-600 font-semibold">None (Object-level encapsulation)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-bold bg-slate-50">Classic Examples</td>
+                                        <td class="p-3">IVY, Mirage</td>
+                                        <td class="p-3">Munin, Midway</td>
+                                        <td class="p-3">Linda (Tuples), Orca (Objects)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= OTHER DESCRIPTIVE QUESTIONS (Q1, Q2, Q3, Q5) ================= -->
+            
+            <!-- Q1 -->
+            <div id="desc-q1" class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden scroll-mt-20">
+                <div class="bg-slate-800 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+                    <h3 class="text-lg font-bold"><span class="text-amber-400 mr-2">Q1.</span> Explain desirable features of a good Distributed File System (DFS).</h3>
+                    <span class="bg-slate-700 text-amber-300 text-xs px-3 py-1 rounded font-bold">CO-03 • BL1 • 6 Marks</span>
+                </div>
+                <div class="p-6 space-y-5">
+                    <p class="text-slate-700 text-sm leading-relaxed">
+                        A <strong>Distributed File System (DFS)</strong> enables programs to store and access remote files across a computer network exactly as if they were local files. A well-designed DFS must possess the following desirable features:
+                    </p>
+
+                    <!-- Diagram for DFS -->
+                    <div class="diagram-container bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col items-center">
+                        <svg viewBox="0 0 700 210" class="w-full max-w-2xl">
+                            <rect x="20" y="45" width="140" height="120" rx="8" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="90" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e1b4b">Client Node A</text>
+                            <text x="90" y="108" text-anchor="middle" font-size="11" fill="#4338ca">open("/proj/code.c")</text>
+                            <rect x="35" y="122" width="110" height="28" rx="4" fill="#c7d2fe"/>
+                            <text x="90" y="140" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e1b4b">Client Cache / VFS</text>
+
+                            <rect x="240" y="35" width="200" height="140" rx="40" fill="#fef3c7" stroke="#d97706" stroke-width="2" stroke-dasharray="5,3"/>
+                            <text x="340" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="#92400e">DFS Transparency Layer</text>
+                            <text x="340" y="108" text-anchor="middle" font-size="10" fill="#78350f">• Location &amp; Access Transparency</text>
+                            <text x="340" y="125" text-anchor="middle" font-size="10" fill="#78350f">• Replication &amp; Fault Tolerance</text>
+                            <text x="340" y="142" text-anchor="middle" font-size="10" fill="#78350f">• Concurrency Control</text>
+
+                            <rect x="520" y="25" width="155" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+                            <text x="597" y="55" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">File Server 1 (Primary)</text>
+                            <text x="597" y="75" text-anchor="middle" font-size="10" fill="#166534">Stores /proj/code.c</text>
+
+                            <rect x="520" y="115" width="155" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+                            <text x="597" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">File Server 2 (Replica)</text>
+                            <text x="597" y="165" text-anchor="middle" font-size="10" fill="#166534">Backup Replica Copy</text>
+
+                            <line x1="160" y1="105" x2="240" y2="105" stroke="#4f46e5" stroke-width="2.5"/>
+                            <line x1="440" y1="85" x2="520" y2="60" stroke="#16a34a" stroke-width="2.5"/>
+                            <line x1="440" y1="125" x2="520" y2="150" stroke="#16a34a" stroke-width="2.5"/>
+                        </svg>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                            <strong class="text-indigo-700">1. Transparency (Access, Location, Migration, Replication):</strong> Users should not need to know where a file is physically located or whether it has moved to another server.
+                        </div>
+                        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                            <strong class="text-indigo-700">2. User Mobility:</strong> Users should be able to log in from any node in the network and see their exact same home directory and file environment.
+                        </div>
+                        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                            <strong class="text-indigo-700">3. Performance & Caching:</strong> File access latency should be comparable to a local disk using client-side and server-side caching.
+                        </div>
+                        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                            <strong class="text-indigo-700">4. Fault Tolerance & High Availability:</strong> If one file server crashes, replicated file copies and stateless servers should keep the system running smoothly.
+                        </div>
+                        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                            <strong class="text-indigo-700">5. Scalability & Heterogeneity:</strong> The system should scale from a few machines to thousands and support different OS platforms (Linux, Windows, macOS).
+                        </div>
+                        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                            <strong class="text-indigo-700">6. Security & Data Integrity:</strong> Concurrent updates must be synchronized (locking), and unauthorized users must be blocked via authentication and ACLs.
+                        </div>
+                    </div>
+
+                    <div class="hinglish-box p-4 rounded-xl text-sm text-amber-950">
+                        <strong><i class="fa-solid fa-language mr-1 text-amber-600"></i> Hinglish Explanation (Q1 - DFS Features):</strong><br>
+                        Ek acche Distributed File System (jaise Google Drive ya NFS) ki sabse badi khaasiyat hoti hai <strong>Transparency</strong>—matlab user ko pata hi nahi chalna chahiye ki file uske local computer par hai ya kisi remote server par. Iske alawa <strong>User Mobility</strong> (kisi bhi PC se login karo toh same files dikhein), <strong>Fault Tolerance</strong> (ek server down ho toh backup server se file mil jaye), aur <strong>Caching</strong> (bar-bar network se mangwane ke bajaye local cache se fast file khule) hona bahut zaroori hai.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div id="desc-q2" class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden scroll-mt-20">
+                <div class="bg-slate-800 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+                    <h3 class="text-lg font-bold"><span class="text-amber-400 mr-2">Q2.</span> What is Deadlock? Explain necessary conditions for deadlock.</h3>
+                    <span class="bg-slate-700 text-amber-300 text-xs px-3 py-1 rounded font-bold">CO-03 • BL2 • 6 Marks</span>
+                </div>
+                <div class="p-6 space-y-5">
+                    <p class="text-slate-700 text-sm leading-relaxed">
+                        <strong>Deadlock Definition:</strong> A deadlock is a permanent blocking state in a distributed or operating system where a set of two or more processes are waiting indefinitely for resources that are currently held by other processes within the same waiting set. Because none of the processes can proceed or release their held resources, the entire group remains stuck forever.
+                    </p>
+
+                    <!-- Wait-For Graph Diagram -->
+                    <div class="diagram-container bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col items-center">
+                        <svg viewBox="0 0 650 220" class="w-full max-w-xl">
+                            <defs>
+                                <marker id="deadlock-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#e11d48" />
+                                </marker>
+                            </defs>
+                            <!-- Process P1 -->
+                            <circle cx="150" cy="110" r="42" fill="#ffe4e6" stroke="#e11d48" stroke-width="2.5"/>
+                            <text x="150" y="108" text-anchor="middle" font-size="14" font-weight="bold" fill="#881337">Process P1</text>
+                            <text x="150" y="125" text-anchor="middle" font-size="10" fill="#9f1239">(Node 1)</text>
+
+                            <!-- Process P2 -->
+                            <circle cx="500" cy="110" r="42" fill="#ffe4e6" stroke="#e11d48" stroke-width="2.5"/>
+                            <text x="500" y="108" text-anchor="middle" font-size="14" font-weight="bold" fill="#881337">Process P2</text>
+                            <text x="500" y="125" text-anchor="middle" font-size="10" fill="#9f1239">(Node 2)</text>
+
+                            <!-- Resource R1 -->
+                            <rect x="280" y="15" width="90" height="45" rx="6" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="325" y="42" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e1b4b">Resource R1</text>
+
+                            <!-- Resource R2 -->
+                            <rect x="280" y="160" width="90" height="45" rx="6" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="325" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e1b4b">Resource R2</text>
+
+                            <!-- Edges -->
+                            <path d="M 280 38 L 185 80" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrow)"/>
+                            <text x="210" y="48" font-size="11" font-weight="bold" fill="#15803d">Held by P1</text>
+
+                            <path d="M 185 135 L 280 180" stroke="#e11d48" stroke-width="2.5" stroke-dasharray="5,3" marker-end="url(#deadlock-arrow)"/>
+                            <text x="200" y="178" font-size="11" font-weight="bold" fill="#be123c">P1 Requests R2</text>
+
+                            <path d="M 370 180 L 465 135" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrow)"/>
+                            <text x="435" y="178" font-size="11" font-weight="bold" fill="#15803d">Held by P2</text>
+
+                            <path d="M 465 80 L 370 38" stroke="#e11d48" stroke-width="2.5" stroke-dasharray="5,3" marker-end="url(#deadlock-arrow)"/>
+                            <text x="435" y="48" font-size="11" font-weight="bold" fill="#be123c">P2 Requests R1</text>
+                        </svg>
+                        <span class="text-xs font-semibold text-slate-500">Figure: Circular Wait Cycle causing Deadlock between Process P1 and Process P2</span>
+                    </div>
+
+                    <h4 class="font-bold text-slate-800 text-sm">Coffman's Four Necessary Conditions for Deadlock (All 4 must hold simultaneously):</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                        <div class="p-3.5 bg-rose-50/60 border border-rose-200 rounded-xl">
+                            <strong class="text-rose-800">1. Mutual Exclusion:</strong> At least one resource must be held in a non-sharable (exclusive) mode; only one process can use the resource at any given time.
+                        </div>
+                        <div class="p-3.5 bg-rose-50/60 border border-rose-200 rounded-xl">
+                            <strong class="text-rose-800">2. Hold and Wait:</strong> A process must be currently holding at least one resource while simultaneously waiting to acquire additional resources held by other processes.
+                        </div>
+                        <div class="p-3.5 bg-rose-50/60 border border-rose-200 rounded-xl">
+                            <strong class="text-rose-800">3. No Preemption:</strong> Resources cannot be forcibly taken away (preempted) from a process; they can only be released voluntarily by the holding process after it finishes its task.
+                        </div>
+                        <div class="p-3.5 bg-rose-50/60 border border-rose-200 rounded-xl">
+                            <strong class="text-rose-800">4. Circular Wait:</strong> A closed chain (cycle) of processes exists such that $P_1$ is waiting for a resource held by $P_2$, $P_2$ is waiting for $P_3$, ..., and $P_n$ is waiting for a resource held by $P_1$.
+                        </div>
+                    </div>
+
+                    <div class="hinglish-box p-4 rounded-xl text-sm text-amber-950">
+                        <strong><i class="fa-solid fa-language mr-1 text-amber-600"></i> Hinglish Explanation (Q2 - Deadlock & 4 Conditions):</strong><br>
+                        <strong>Deadlock</strong> ek aisi situation hai jahan do ya do se zyada processes ek-dusre ke resources ke liye hamesha ke liye wait karte reh jate hain (jaise <code class="font-bold">P1</code> ke paas <code class="font-bold">R1</code> hai aur use <code class="font-bold">R2</code> chahiye, jabki <code class="font-bold">P2</code> ke paas <code class="font-bold">R2</code> hai aur use <code class="font-bold">R1</code> chahiye).<br>
+                        Deadlock tabhi hota hai jab ye <strong>4 conditions ek saath</strong> sach hon: 1) <strong>Mutual Exclusion</strong> (Ek waqt par ek hi process resource use kar sake), 2) <strong>Hold and Wait</strong> (Ek resource pakad kar dusre ka intezaar karna), 3) <strong>No Preemption</strong> (Zabardasti resource छीना na ja sake), aur 4) <strong>Circular Wait</strong> (Waiting ka ek gol chakkar/cycle ban jaye).
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q3 -->
+            <div id="desc-q3" class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden scroll-mt-20">
+                <div class="bg-slate-800 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+                    <h3 class="text-lg font-bold"><span class="text-amber-400 mr-2">Q3.</span> Explain Remote Procedure Call (RPC) Mechanism with neat diagram.</h3>
+                    <span class="bg-slate-700 text-amber-300 text-xs px-3 py-1 rounded font-bold">CO-03 / CO-02 • BL1 • 6 Marks</span>
+                </div>
+                <div class="p-6 space-y-5">
+                    <p class="text-slate-700 text-sm leading-relaxed">
+                        <strong>Remote Procedure Call (RPC)</strong> is a powerful high-level communication paradigm that enables a client process on one machine to call a procedure/function on a remote server machine across a network just as if it were a normal local function call, hiding all underlying socket and network complexities.
+                    </p>
+
+                    <!-- RPC Diagram -->
+                    <div class="diagram-container bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col items-center">
+                        <svg viewBox="0 0 780 280" class="w-full max-w-3xl">
+                            <!-- Client Side -->
+                            <rect x="20" y="15" width="280" height="245" rx="12" fill="#f8fafc" stroke="#475569" stroke-width="2" stroke-dasharray="5,3"/>
+                            <text x="160" y="38" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e293b">CLIENT MACHINE</text>
+
+                            <rect x="55" y="52" width="210" height="42" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                            <text x="160" y="77" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e3a8a">1. Client Process: sum(a, b)</text>
+
+                            <rect x="55" y="122" width="210" height="42" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                            <text x="160" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#78350f">2. Client Stub (Marshaling)</text>
+                            <text x="160" y="156" text-anchor="middle" font-size="10" fill="#92400e">Packs arguments into message</text>
+
+                            <rect x="55" y="195" width="210" height="42" rx="6" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="160" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#312e81">3. Client RPCRuntime / OS</text>
+
+                            <!-- Server Side -->
+                            <rect x="480" y="15" width="280" height="245" rx="12" fill="#f8fafc" stroke="#475569" stroke-width="2" stroke-dasharray="5,3"/>
+                            <text x="620" y="38" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e293b">SERVER MACHINE</text>
+
+                            <rect x="515" y="52" width="210" height="42" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+                            <text x="620" y="77" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">6. Server Procedure: sum(a,b)</text>
+
+                            <rect x="515" y="122" width="210" height="42" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                            <text x="620" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#78350f">5. Server Stub (Unmarshaling)</text>
+                            <text x="620" y="156" text-anchor="middle" font-size="10" fill="#92400e">Unpacks args &amp; calls server</text>
+
+                            <rect x="515" y="195" width="210" height="42" rx="6" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="620" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#312e81">4. Server RPCRuntime / OS</text>
+
+                            <!-- Arrows -->
+                            <line x1="160" y1="94" x2="160" y2="120" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+                            <line x1="160" y1="164" x2="160" y2="193" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+                            <line x1="265" y1="208" x2="513" y2="208" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#arrow)"/>
+                            <text x="390" y="200" text-anchor="middle" font-size="11" font-weight="bold" fill="#4f46e5">Request Packet ➔</text>
+
+                            <line x1="513" y1="226" x2="265" y2="226" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrow)"/>
+                            <text x="390" y="244" text-anchor="middle" font-size="11" font-weight="bold" fill="#16a34a">⬅ Reply Packet (Result)</text>
+
+                            <line x1="620" y1="195" x2="620" y2="166" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow)"/>
+                            <line x1="620" y1="122" x2="620" y2="96" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow)"/>
+                        </svg>
+                    </div>
+
+                    <div class="space-y-2 text-sm text-slate-700">
+                        <p><strong>Step-by-Step Working of RPC:</strong></p>
+                        <ol class="list-decimal pl-5 space-y-1.5">
+                            <li><strong>Client Call:</strong> The client process invokes a normal local procedure call to the <em>Client Stub</em> passing parameters on the stack.</li>
+                            <li><strong>Parameter Marshaling:</strong> The <em>Client Stub</em> packs the procedure identifier and arguments into a standard network message format (Marshaling) and asks the local <em>RPCRuntime</em> to transmit it.</li>
+                            <li><strong>Network Transmission:</strong> The Client OS sends the request packet over the network to the remote Server OS.</li>
+                            <li><strong>Unmarshaling at Server Stub:</strong> The Server OS hands the packet to the <em>Server Stub</em>, which unpacks (unmarshals) the parameters.</li>
+                            <li><strong>Procedure Execution & Reply:</strong> The <em>Server Stub</em> invokes the actual remote procedure. Once executed, the return result follows the exact reverse path back to the client!</li>
+                        </ol>
+                    </div>
+
+                    <div class="hinglish-box p-4 rounded-xl text-sm text-amber-950">
+                        <strong><i class="fa-solid fa-language mr-1 text-amber-600"></i> Hinglish Explanation (Q3 - RPC Mechanism):</strong><br>
+                        RPC ka main kaam hai remote machine par rakhe function ko aise call karna jaise wo humare local computer par hi ho! Isme do <strong>Stubs (Dalal/Translators)</strong> kaam karte hain: <br>
+                        1) Jab Client function call karta hai, toh <strong>Client Stub</strong> parameters ko pack (<strong>Marshaling</strong>) karke message banata hai aur network par bhej deta hai.<br>
+                        2) Server side par <strong>Server Stub</strong> us message ko kholta hai (<strong>Unmarshaling</strong>) aur asli Server Function ko call karke result wapas usi raaste se Client ko lauta deta hai.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q5 -->
+            <div id="desc-q5" class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden scroll-mt-20">
+                <div class="bg-slate-800 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+                    <h3 class="text-lg font-bold"><span class="text-amber-400 mr-2">Q5.</span> Explain Design and Implementation Issues of Distributed Shared Memory (DSM).</h3>
+                    <span class="bg-slate-700 text-amber-300 text-xs px-3 py-1 rounded font-bold">CO-03 • BL1 • 6 Marks</span>
+                </div>
+                <div class="p-6 space-y-5">
+                    <p class="text-slate-700 text-sm leading-relaxed">
+                        Designing an efficient Distributed Shared Memory (DSM) system requires resolving several critical architectural and performance issues:
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <strong class="text-indigo-700 block mb-1">1. Granularity (Block Size) & False Sharing:</strong>
+                            Choosing the right size of the shared memory unit (word, page, or object). Large pages reduce page table overhead but cause <strong>False Sharing</strong> (when two unrelated variables reside on the same page and accessed by two different nodes simultaneously).
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <strong class="text-indigo-700 block mb-1">2. Structure of Shared Memory Space:</strong>
+                            Deciding whether memory should be unstructured (byte array/pages), structured by variables/data types, or structured as objects/tuples (as detailed in Q4).
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <strong class="text-indigo-700 block mb-1">3. Memory Coherence & Consistency Models:</strong>
+                            Defining rules for when updates made by one process become visible to other processes (e.g., Strict, Sequential, Causal, Release, or Weak Consistency).
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <strong class="text-indigo-700 block mb-1">4. Replication & Coherence Protocols:</strong>
+                            To improve read performance, shared blocks are replicated across nodes. Updates are managed using either <strong>Write-Invalidate</strong> (invalidating other copies before writing) or <strong>Write-Update</strong> (broadcasting updated data to all copies).
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <strong class="text-indigo-700 block mb-1">5. Thrashing Control:</strong>
+                            <strong>Thrashing</strong> happens when a memory page ping-pongs back and forth rapidly between two nodes competing for access. Resolved by pinning pages for a minimum time slice ($T$).
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <strong class="text-indigo-700 block mb-1">6. Replacement Strategy:</strong>
+                            When a node's local memory cache becomes full, it must evict a page (using LRU or sending a dirty page back to its owner node rather than discarding it).
+                        </div>
+                    </div>
+
+                    <div class="hinglish-box p-4 rounded-xl text-sm text-amber-950">
+                        <strong><i class="fa-solid fa-language mr-1 text-amber-600"></i> Hinglish Explanation (Q5 - DSM Design Issues):</strong><br>
+                        DSM banate waqt 5-6 main challenges aate hain:<br>
+                        • <strong>Granularity & False Sharing:</strong> Memory block kitna bada rakhein? Agar page bahut bada rakha, toh alag-alag variables ek hi page me fas jayenge jise <em>False Sharing</em> kehte hain.<br>
+                        • <strong>Consistency Model:</strong> Ek node ne write kiya toh dusre node ko kab aur kis order me wo update dikhna chahiye?<br>
+                        • <strong>Thrashing:</strong> Jab do nodes ek hi page ko baar-baar ek-dusre se cheente hain (ping-pong effect), toh system slow ho jata hai—ise <em>Thrashing</em> kehte hain.
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 mt-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs sm:text-sm space-y-3">
+            <p class="font-semibold text-slate-200">SSVPS Bapusaheb Shivajirao Deore College of Engineering, Dhule</p>
+            <p class="text-slate-400">Course: Distributed Systems (BTCOE703B) • Complete Interactive MCQ & Descriptive Hinglish Study Guide</p>
+            
+            <div class="pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs">
+                <span class="text-slate-300">
+                    Developed with <i class="fa-solid fa-heart text-rose-500 mx-0.5"></i> by <strong class="text-white font-semibold">Himesh Raghuwanshi</strong>
+                </span>
+                <span class="text-slate-600 hidden sm:inline">•</span>
+                <a href="https://github.com/himesh112005" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-amber-400 transition inline-flex items-center gap-1.5 font-medium">
+                    <i class="fa-brands fa-github text-sm"></i> GitHub: @himesh112005
+                </a>
+                <span class="text-slate-600 hidden sm:inline">•</span>
+                <a href="https://himesh-raghuwanshi.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-amber-400 transition inline-flex items-center gap-1.5 font-medium">
+                    <i class="fa-solid fa-globe text-sm"></i> Portfolio: himesh-raghuwanshi.vercel.app
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic and Question Database -->
+    <script>
+        const mcqData = [
+            // ================= CO-01 (10 Questions) =================
+            {
+                id: "co1-q1",
+                co: "CO-01",
+                qNum: 1,
+                bl: "BL1",
+                question: "A distributed computing system is best defined as:",
+                options: [
+                    "A. A single processor executing multiple programs simultaneously",
+                    "B. A set of autonomous computers interconnected by a network and cooperating to achieve a common goal",
+                    "C. A system with shared memory among multiple processors",
+                    "D. A centralized computing system"
+                ],
+                correct: 1,
+                explanation: "A distributed system consists of multiple independent (autonomous) nodes that do not share physical memory or clocks, connected via a communication network, working together as a unified system.",
+                hinglish: "Distributed System ka matlab hai alag-alag independent computers (nodes) jo network se jude hote hain aur mil-jul kar ek common kaam poora karte hain."
+            },
+            {
+                id: "co1-q2",
+                co: "CO-01",
+                qNum: 2,
+                bl: "BL1",
+                question: "Distributed computing systems are gaining popularity primarily because they:",
+                options: [
+                    "A. Are more expensive but faster",
+                    "B. Provide resource sharing and reliability",
+                    "C. Use older hardware effectively",
+                    "D. Require no network communication"
+                ],
+                correct: 1,
+                explanation: "The biggest advantages driving the popularity of distributed systems are seamless resource sharing (hardware, files, printers, data) and high reliability/fault tolerance (if one machine fails, others continue operating).",
+                hinglish: "Distributed systems isliye popular ho rahe hain kyunki inसे hum resources (files, printers, CPU power) aasani se share kar sakte hain aur ek machine kharab hone par bhi system chalta rehta hai (Reliability)."
+            },
+            {
+                id: "co1-q3",
+                co: "CO-01",
+                qNum: 3,
+                bl: "BL1",
+                question: "A distributed operating system differs from a network operating system mainly in that it:",
+                options: [
+                    "A. Provides users with explicit access to remote resources",
+                    "B. Appears as a single system image to the user",
+                    "C. Requires manual data transfer",
+                    "D. Does not allow interprocess communication"
+                ],
+                correct: 1,
+                explanation: "A Distributed Operating System (DOS) hides the existence of multiple autonomous machines and presents a unified 'Single System Image' (SSI) to users, whereas a Network OS requires users to explicitly know machine names/IPs (e.g., via SSH/FTP).",
+                hinglish: "Distributed OS (DOS) poore network ke computers ko chhupa kar user ko ek 'Single System Image' dikhata hai—yani user ko lagta hai wo ek hi computer chala raha hai."
+            },
+            {
+                id: "co1-q4",
+                co: "CO-01",
+                qNum: 4,
+                bl: "BL2",
+                question: "The Distributed Computing Environment (DCE) was developed by:",
+                options: [
+                    "A. IBM",
+                    "B. Microsoft",
+                    "C. The Open Software Foundation (OSF)",
+                    "D. Oracle"
+                ],
+                correct: 2,
+                explanation: "DCE (Distributed Computing Environment) was developed in the early 1990s by the Open Software Foundation (OSF)—a consortium of companies including IBM, DEC, and HP—to standardize distributed middleware services.",
+                hinglish: "Distributed Computing Environment (DCE) ko Open Software Foundation (OSF) ne develop kiya tha taaki alag-alag vendors ke systems aapas me kaam kar sakein."
+            },
+            {
+                id: "co1-q5",
+                co: "CO-01",
+                qNum: 5,
+                bl: "BL1",
+                question: "Which of the following is a desirable feature of a good message-passing system?",
+                options: [
+                    "A. Low reliability",
+                    "B. High latency",
+                    "C. Transparency",
+                    "D. Manual addressing"
+                ],
+                correct: 2,
+                explanation: "A good message-passing system should provide location and access transparency, high reliability, low latency, simplicity, and clean syntax.",
+                hinglish: "Ek acche message-passing system me 'Transparency' honi chahiye—yani programmer ko network routing ya physical location ki tension na leni pade."
+            },
+            {
+                id: "co1-q6",
+                co: "CO-01",
+                qNum: 6,
+                bl: "BL1",
+                question: "In message-passing systems, synchronization refers to:",
+                options: [
+                    "A. Ensuring that only one process runs at a time",
+                    "B. Coordinating the sending and receiving of messages",
+                    "C. Allocating buffer space",
+                    "D. Decoding message formats"
+                ],
+                correct: 1,
+                explanation: "Synchronization in IPC defines how the sender and receiver coordinate in time—specifically whether `send()` and `receive()` primitives are blocking (synchronous) or non-blocking (asynchronous).",
+                hinglish: "Message-passing me Synchronization ka matlab hai Sender aur Receiver ke beech taal-mel (coordination) bithana ki message bhejte aur receive karte waqt process wait (block) karega ya nahi."
+            },
+            {
+                id: "co1-q7",
+                co: "CO-01",
+                qNum: 7,
+                bl: "BL1",
+                question: "Which of the following correctly describes buffering in message-passing systems?",
+                options: [
+                    "A. It eliminates the need for message queues",
+                    "B. It stores messages temporarily until the receiver is ready",
+                    "C. It ensures atomic message delivery",
+                    "D. It decodes message data"
+                ],
+                correct: 1,
+                explanation: "Buffering allows messages sent by a sender to be stored temporarily in a memory queue (bounded or unbounded buffer) so the sender does not have to block if the receiver is busy.",
+                hinglish: "Buffering ka kaam hai bheje gaye messages ko temporarily memory me hold karke rakhna jab tak receiver unhe padhne ke liye ready na ho jaye."
+            },
+            {
+                id: "co1-q8",
+                co: "CO-01",
+                qNum: 8,
+                bl: "BL1",
+                question: "A multidatagram message is used when:",
+                options: [
+                    "A. The message fits within one packet",
+                    "B. The message is too large and must be fragmented",
+                    "C. The communication is synchronous",
+                    "D. The system uses shared memory"
+                ],
+                correct: 1,
+                explanation: "When an application message exceeds the Maximum Transmission Unit (MTU) of the underlying network packet, it is split (fragmented) into multiple datagrams called a multidatagram message.",
+                hinglish: "Jab koi message size me bahut bada hota hai aur ek single packet me fit nahi aata, tab use chhote-chhote pieces (fragments) me tod kar 'Multidatagram Message' ke roop me bheja jata hai."
+            },
+            {
+                id: "co1-q9",
+                co: "CO-01",
+                qNum: 9,
+                bl: "BL1",
+                question: "Why is encoding and decoding necessary in distributed message passing?",
+                options: [
+                    "A. To reduce data redundancy",
+                    "B. To convert data formats between heterogeneous systems",
+                    "C. To improve transmission speed",
+                    "D. To encrypt messages"
+                ],
+                correct: 1,
+                explanation: "Different computers may use different internal data representations (e.g., Little-Endian vs. Big-Endian, ASCII vs. EBCDIC, 32-bit vs. 64-bit). Encoding converts structured objects into a flat external stream, and decoding reconstructs them.",
+                hinglish: "Distributed system me alag-alag architecture (Heterogeneous) ke computers hote hain. Unke beech data format (jaise integer/character representation) match karne ke liye Encoding aur Decoding zaroori hai."
+            },
+            {
+                id: "co1-q10",
+                co: "CO-01",
+                qNum: 10,
+                bl: "BL1",
+                question: "Process addressing in distributed systems involves:",
+                options: [
+                    "A. Assigning unique physical memory addresses to processes",
+                    "B. Mapping process identifiers to network addresses",
+                    "C. Allocating shared buffers",
+                    "D. Encrypting process names"
+                ],
+                correct: 1,
+                explanation: "Process addressing identifies the target process across the network by combining or mapping logical process identifiers (PIDs/ports/names) to machine network addresses (IP/MAC).",
+                hinglish: "Process Addressing ka matlab hai kisi remote process ke logical ID ko uske machine ke network address (jaise IP + Port/PID) ke saath map karna taaki message sahi jagah pahunche."
+            },
+
+            // ================= CO-02 (10 Questions) =================
+            {
+                id: "co2-q1",
+                co: "CO-02",
+                qNum: 1,
+                bl: "BL1",
+                question: "Remote Procedure Call (RPC) is best described as:",
+                options: [
+                    "A. A message-passing model for shared memory systems",
+                    "B. A mechanism that allows a process to execute a procedure on a remote machine as if it were local",
+                    "C. A protocol for streaming data continuously",
+                    "D. A service for batch job execution"
+                ],
+                correct: 1,
+                explanation: "RPC abstracts network communication into a familiar procedure call syntax, allowing a client program to invoke a subroutine on a remote server machine transparently.",
+                hinglish: "RPC ek aisi technique hai jisse koi process dusre (remote) computer par rakhe function/procedure ko bilkul aise call kar sakta hai jaise wo usi ke local computer par ho."
+            },
+            {
+                id: "co2-q2",
+                co: "CO-02",
+                qNum: 2,
+                bl: "BL1",
+                question: "The main goal of transparency in RPC is to:",
+                options: [
+                    "A. Hide network and communication details from the programmer",
+                    "B. Allow manual control of communication channels",
+                    "C. Increase the visibility of remote calls",
+                    "D. Make communication less secure"
+                ],
+                correct: 0,
+                explanation: "Syntactic and semantic transparency in RPC aims to hide socket programming, packet fragmentation, and network locations so that remote procedure calls look identical to local calls.",
+                hinglish: "RPC me Transparency ka main aim hai programmer se network, sockets, aur message passing ki saari complexity chhupa lena."
+            },
+            {
+                id: "co2-q3",
+                co: "CO-02",
+                qNum: 3,
+                bl: "BL1",
+                question: "The implementation of RPC mainly involves:",
+                options: [
+                    "A. Message queues and memory segmentation",
+                    "B. Stub generation and message exchange between client and server",
+                    "C. Only direct socket communication",
+                    "D. Local function linking"
+                ],
+                correct: 1,
+                explanation: "RPC is implemented using five key components: the Client, Client Stub, RPCRuntime (message exchange), Server Stub, and Server. Stubs are auto-generated via an Interface Definition Language (IDL) compiler.",
+                hinglish: "RPC ko implement karne me sabse main role 'Client/Server Stubs' generate karne aur unke beech request-reply messages exchange karne ka hota hai."
+            },
+            {
+                id: "co2-q4",
+                co: "CO-02",
+                qNum: 4,
+                bl: "BL2",
+                question: "In an RPC system, the client and server stubs are responsible for:",
+                options: [
+                    "A. Directly executing remote code",
+                    "B. Handling message encoding and decoding (marshaling)",
+                    "C. Maintaining system logs",
+                    "D. Managing local I/O devices"
+                ],
+                correct: 1,
+                explanation: "Client and Server Stubs act as local proxies that pack (marshal) arguments/results into standard network packets and unpack (unmarshal) them at the receiving end.",
+                hinglish: "Client aur Server Stubs ka kaam function arguments ko pack (Marshaling) aur unpack (Unmarshaling/Decoding) karke network par bhejne layak banana hota hai."
+            },
+            {
+                id: "co2-q5",
+                co: "CO-02",
+                qNum: 5,
+                bl: "BL1",
+                question: "An RPC message typically contains:",
+                options: [
+                    "A. Only the procedure name",
+                    "B. Procedure identifier, arguments, and return values",
+                    "C. File descriptors and permissions",
+                    "D. System configuration details"
+                ],
+                correct: 1,
+                explanation: "An RPC call/reply packet carries the message ID, program/procedure identifier, input arguments (in call messages), and output results/status (in reply messages).",
+                hinglish: "Ek RPC message ke andar call kiye jane wale Function ka ID (Procedure Identifier), uske Arguments (inputs), aur Reply me Return Values hoti hain."
+            },
+            {
+                id: "co2-q6",
+                co: "CO-02",
+                qNum: 6,
+                bl: "BL1",
+                question: "Marshaling in RPC refers to:",
+                options: [
+                    "A. Encrypting the message",
+                    "B. Packing arguments and results into a standard format for transmission",
+                    "C. Compressing the message data",
+                    "D. Logging RPC calls"
+                ],
+                correct: 1,
+                explanation: "Marshaling takes parameters or return values, converts them into an external data representation (like XDR), and flattens them into a contiguous byte buffer for network transmission.",
+                hinglish: "Marshaling ka matlab hai function ke arguments aur results ko ek standard packet format me pack karna taaki unhe network par transmit kiya ja sake."
+            },
+            {
+                id: "co2-q7",
+                co: "CO-02",
+                qNum: 7,
+                bl: "BL1",
+                question: "Which of the following is NOT a responsibility of the server in RPC?",
+                options: [
+                    "A. Listening for incoming requests",
+                    "B. Executing the requested procedure",
+                    "C. Sending results to the client",
+                    "D. Generating client stubs"
+                ],
+                correct: 3,
+                explanation: "Client stubs are generated at compile-time by the IDL compiler (such as `rpcgen`), not at runtime by the RPC server.",
+                hinglish: "Server ka kaam request sunna, function execute karna aur result bhejna hai. 'Client Stubs' banana IDL compiler ka kaam hota hai, server ka nahi!"
+            },
+            {
+                id: "co2-q8",
+                co: "CO-02",
+                qNum: 8,
+                bl: "BL1",
+                question: "At-most-once call semantics in RPC means:",
+                options: [
+                    "A. The procedure may never be executed",
+                    "B. The procedure executes only once or not at all",
+                    "C. The procedure is executed repeatedly until successful",
+                    "D. The call is guaranteed to execute exactly once"
+                ],
+                correct: 1,
+                explanation: "By filtering duplicate requests on the server using unique transaction IDs, At-Most-Once semantics guarantees that a remote procedure is executed either once (if no fatal crash occurs) or zero times, never multiple times.",
+                hinglish: "At-most-once call semantics guarantee deta hai ki remote function zyada se zyada EK baar chalega, ya crash hone par bilkul nahi chalega (duplicate execution nahi hoga)."
+            },
+            {
+                id: "co2-q9",
+                co: "CO-02",
+                qNum: 9,
+                bl: "BL1",
+                question: "Which protocol is commonly used for implementing RPCs over the Internet?",
+                options: [
+                    "A. TCP/IP",
+                    "B. ICMP",
+                    "C. SMTP",
+                    "D. FTP"
+                ],
+                correct: 0,
+                explanation: "RPC frameworks over the Internet rely on the TCP/IP (and UDP/IP) transport protocol suite for reliable end-to-end delivery of request and reply messages.",
+                hinglish: "Internet par RPC messages ko reliably ek machine se dusri machine tak bhejne ke liye TCP/IP protocol suite ka use kiya jata hai."
+            },
+            {
+                id: "co2-q10",
+                co: "CO-02",
+                qNum: 10,
+                bl: "BL1",
+                question: "Exception handling in RPCs is important because:",
+                options: [
+                    "A. It ensures that failures are silently ignored",
+                    "B. It allows the system to manage communication and execution errors gracefully",
+                    "C. It encrypts sensitive data",
+                    "D. It reduces transmission time"
+                ],
+                correct: 1,
+                explanation: "Unlike local calls, remote calls can fail due to packet loss, network partitions, or remote server crashes. Exception handling notifies the client application so it can recover or retry gracefully.",
+                hinglish: "RPC me network disconnect ho sakta hai ya server crash ho sakta hai; isliye Exception Handling zaroori hai taaki program achanak hang hone ke bajaye error ko gracefully sambhal sake."
+            },
+
+            // ================= CO-03 (10 Questions) =================
+            {
+                id: "co3-q1",
+                co: "CO-03",
+                qNum: 1,
+                bl: "BL1",
+                question: "A Distributed Shared Memory (DSM) system is designed to:",
+                options: [
+                    "A. Allow all processors to share the same physical memory",
+                    "B. Provide a shared memory abstraction over physically distributed memory",
+                    "C. Eliminate the need for message passing",
+                    "D. Use a single centralized memory server"
+                ],
+                correct: 1,
+                explanation: "DSM provides a virtual global shared address space abstraction on top of loosely coupled nodes that only have private local physical memories.",
+                hinglish: "DSM ka design isliye kiya gaya hai taaki alag-alag computers ki local physical memories ke upar ek 'Shared Memory Abstraction' (illusion) diya ja sake."
+            },
+            {
+                id: "co3-q2",
+                co: "CO-03",
+                qNum: 2,
+                bl: "BL1",
+                question: "The main design issues in DSM systems include:",
+                options: [
+                    "A. Consistency model, granularity, and data replication",
+                    "B. Network topology and cabling",
+                    "C. File permissions and user authentication",
+                    "D. Only cache replacement policies"
+                ],
+                correct: 0,
+                explanation: "Core DSM design challenges revolve around block granularity (page size), memory consistency models, coherence/replication strategies (write-update vs. write-invalidate), and thrashing.",
+                hinglish: "DSM system design karte waqt sabse bade mudde (issues) hote hain: Consistency Model, Granularity (block size), aur Data Replication."
+            },
+            {
+                id: "co3-q3",
+                co: "CO-03",
+                qNum: 3,
+                bl: "BL1",
+                question: "In DSM systems, granularity refers to:",
+                options: [
+                    "A. The size of data blocks that can be shared",
+                    "B. The number of processors in the system",
+                    "C. The frequency of synchronization",
+                    "D. The size of local memory"
+                ],
+                correct: 0,
+                explanation: "Granularity is the size of the basic unit of shared memory transferred across the network during a DSM miss (e.g., a few words, an object, or a 4 KB memory page).",
+                hinglish: "DSM me Granularity ka matlab hai share kiye jane wale data block ya page ka size (jaise 1 KB, 4 KB, ya ek variable)."
+            },
+            {
+                id: "co3-q4",
+                co: "CO-03",
+                qNum: 4,
+                bl: "BL2",
+                question: "The structure of shared memory space in DSM systems can be:",
+                options: [
+                    "A. Static or dynamic",
+                    "B. Binary or textual",
+                    "C. Homogeneous or virtual",
+                    "D. Centralized or encrypted"
+                ],
+                correct: 0,
+                explanation: "Depending on how the shared address space and data items are allocated and structured (unstructured linear pages vs. dynamically created shared objects/variables), the DSM space layout can be static or dynamic.",
+                hinglish: "DSM ke andar shared memory space ka structure Static (fixed layout) ya Dynamic (runtime par variables/objects ke hisaab se badalne wala) ho sakta hai."
+            },
+            {
+                id: "co3-q5",
+                co: "CO-03",
+                qNum: 5,
+                bl: "BL1",
+                question: "A consistency model in DSM defines:",
+                options: [
+                    "A. How memory is physically allocated",
+                    "B. The rules governing how updates to shared data are observed by processes",
+                    "C. The time taken for message delivery",
+                    "D. The structure of memory pages"
+                ],
+                correct: 1,
+                explanation: "A memory consistency model is a contract between the programmer and the DSM system specifying the order and timing in which memory writes by one process become visible to reads by other processes.",
+                hinglish: "Consistency Model wo rules तय karta hai jisse pata chalta hai ki ek process dwara shared data me kiya gaya badlav (update) baaki processes ko kab aur kis order me dikhai dega."
+            },
+            {
+                id: "co3-q6",
+                co: "CO-03",
+                qNum: 6,
+                bl: "BL1",
+                question: "In DSM systems, thrashing occurs when:",
+                options: [
+                    "A. Multiple processes try to access the same resource simultaneously",
+                    "B. Pages are frequently moved between nodes due to excessive invalidations",
+                    "C. A node fails to respond to RPCs",
+                    "D. The system clock is unsynchronized"
+                ],
+                correct: 1,
+                explanation: "Thrashing (the ping-pong effect) occurs when two or more nodes repeatedly read and write to the same shared page simultaneously, causing the page to continuously migrate back and forth over the network.",
+                hinglish: "Jab do nodes ek hi memory page ko lagatar access karte hain aur wo page network par bar-bar idhar-se-udhar bhaagta rehta hai (excessive invalidations ke kaaran), toh use 'Thrashing' kehte hain."
+            },
+            {
+                id: "co3-q7",
+                co: "CO-03",
+                qNum: 7,
+                bl: "BL1",
+                question: "Heterogeneous DSM systems are characterized by:",
+                options: [
+                    "A. Identical hardware and operating systems",
+                    "B. Different architectures or platforms cooperating in the same shared memory abstraction",
+                    "C. Uniform data representation formats",
+                    "D. Shared virtual memory on a single CPU"
+                ],
+                correct: 1,
+                explanation: "A heterogeneous DSM system enables machines with different CPU architectures (e.g., x86 and ARM, Big-Endian and Little-Endian) and different OS kernels to share data seamlessly using compiler/middleware conversion.",
+                hinglish: "Heterogeneous DSM ka matlab hai alag-alag hardware architectures aur operating systems wale computers ka ek hi shared memory abstraction me mil kar kaam karna."
+            },
+            {
+                id: "co3-q8",
+                co: "CO-03",
+                qNum: 8,
+                bl: "BL1",
+                question: "Synchronization in distributed systems is essential because it:",
+                options: [
+                    "A. Slows down concurrent execution",
+                    "B. Coordinates processes and maintains consistency",
+                    "C. Reduces CPU utilization",
+                    "D. Disables message passing"
+                ],
+                correct: 1,
+                explanation: "Without a global physical clock, synchronization protocols (clock synchronization, mutual exclusion, election algorithms) are essential to coordinate concurrent processes and prevent race conditions on shared data.",
+                hinglish: "Distributed systems me processes ko coordinate karne aur shared data ko corrupt hone se bacha kar Consistency banaye rakhne ke liye Synchronization behad zaroori hai."
+            },
+            {
+                id: "co3-q9",
+                co: "CO-03",
+                qNum: 9,
+                bl: "BL1",
+                question: "The main objective of mutual exclusion in distributed systems is to:",
+                options: [
+                    "A. Allow multiple processes to enter the critical section simultaneously",
+                    "B. Ensure only one process executes in the critical section at a time",
+                    "C. Avoid communication between processes",
+                    "D. Enable concurrent critical operations"
+                ],
+                correct: 1,
+                explanation: "Mutual exclusion guarantees safety by ensuring that at any moment, at most one distributed process is allowed inside its Critical Section (CS) to access a shared resource.",
+                hinglish: "Mutual Exclusion ka main maksad ye pakka karna hai ki ek samay par sirf EK hi process Critical Section (shared resource) ke andar execute kare."
+            },
+            {
+                id: "co3-q10",
+                co: "CO-03",
+                qNum: 10,
+                bl: "BL1",
+                question: "A deadlock occurs in a distributed system when:",
+                options: [
+                    "A. Processes are waiting indefinitely for resources held by each other",
+                    "B. Processes execute too fast",
+                    "C. All resources are free",
+                    "D. The system clock is unsynchronized"
+                ],
+                correct: 0,
+                explanation: "A deadlock occurs when a set of processes form a circular wait chain where each process holds a resource and waits forever for another resource held by another process in the cycle.",
+                hinglish: "Deadlock tab hota hai jab processes ek-dusre ke paas maujood resources ke free hone ka hamesha (indefinitely) intezaar karte reh jate hain."
+            }
+        ];
+
+        // State Tracking
+        let userAnswers = {};
+        let currentFilter = 'ALL';
+
+        function renderMCQs() {
+            const container = document.getElementById('mcq-container');
+            container.innerHTML = '';
+
+            const filteredQuestions = currentFilter === 'ALL' 
+                ? mcqData 
+                : mcqData.filter(q => q.co === currentFilter);
+
+            filteredQuestions.forEach((item, index) => {
+                const answered = userAnswers[item.id] !== undefined;
+                const selectedOpt = userAnswers[item.id];
+                const isCorrect = selectedOpt === item.correct;
+
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition hover:shadow-md";
+                
+                // Header Badge Color based on CO
+                let coBadgeColor = "bg-indigo-100 text-indigo-800 border-indigo-200";
+                if (item.co === "CO-02") coBadgeColor = "bg-emerald-100 text-emerald-800 border-emerald-200";
+                if (item.co === "CO-03") coBadgeColor = "bg-amber-100 text-amber-800 border-amber-200";
+
+                let optionsHTML = '';
+                item.options.forEach((optText, optIdx) => {
+                    let btnClass = "border-slate-200 bg-slate-50 hover:bg-indigo-50/50 hover:border-indigo-300 text-slate-700";
+                    let iconHTML = `<span class="w-6 h-6 rounded-full bg-white border border-slate-300 flex items-center justify-center text-xs font-bold text-slate-500 shrink-0">${String.fromCharCode(65 + optIdx)}</span>`;
+
+                    if (answered) {
+                        if (optIdx === item.correct) {
+                            btnClass = "border-emerald-500 bg-emerald-50 text-emerald-950 font-semibold ring-2 ring-emerald-500/20";
+                            iconHTML = `<span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs shrink-0"><i class="fa-solid fa-check"></i></span>`;
+                        } else if (optIdx === selectedOpt && selectedOpt !== item.correct) {
+                            btnClass = "border-rose-500 bg-rose-50 text-rose-950 font-semibold";
+                            iconHTML = `<span class="w-6 h-6 rounded-full bg-rose-600 text-white flex items-center justify-center text-xs shrink-0"><i class="fa-solid fa-xmark"></i></span>`;
+                        } else {
+                            btnClass = "border-slate-200 bg-slate-50/50 text-slate-400 opacity-75";
+                        }
+                    }
+
+                    optionsHTML += `
+                        <button 
+                            onclick="selectOption('${item.id}', ${optIdx})" 
+                            ${answered ? 'disabled' : ''} 
+                            class="option-btn w-full text-left p-3.5 rounded-xl border ${btnClass} flex items-center gap-3 text-sm sm:text-base">
+                            ${iconHTML}
+                            <span>${optText.substring(3)}</span>
+                        </button>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="p-5 sm:p-6">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-1 rounded-md text-xs font-extrabold border ${coBadgeColor}">${item.co} • Q${item.qNum}</span>
+                                <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-600">Bloom's: ${item.bl}</span>
+                                <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-600">1 Mark</span>
+                            </div>
+                            ${answered ? (
+                                isCorrect 
+                                ? `<span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200"><i class="fa-solid fa-circle-check mr-1"></i>Correct (+1)</span>`
+                                : `<span class="text-xs font-bold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-200"><i class="fa-solid fa-circle-xmark mr-1"></i>Incorrect (0)</span>`
+                            ) : `<span class="text-xs text-slate-400 font-medium">Select an option</span>`}
+                        </div>
+
+                        <h3 class="text-base sm:text-lg font-bold text-slate-800 mb-4">${item.question}</h3>
+
+                        <div class="grid grid-cols-1 gap-2.5">
+                            ${optionsHTML}
+                        </div>
+
+                        <!-- Explanation Box -->
+                        <div id="exp-${item.id}" class="${answered ? 'block' : 'hidden'} mt-5 pt-4 border-t border-slate-200 space-y-3">
+                            <div class="bg-indigo-50/70 border border-indigo-100 p-3.5 rounded-xl text-xs sm:text-sm text-slate-700">
+                                <strong class="text-indigo-900 block mb-1"><i class="fa-solid fa-circle-info text-indigo-600 mr-1"></i> Technical Explanation (Correct Answer: Option ${String.fromCharCode(65 + item.correct)}):</strong>
+                                ${item.explanation}
+                            </div>
+                            <div class="hinglish-box p-3.5 rounded-xl text-xs sm:text-sm text-amber-950">
+                                <strong class="text-amber-900 block mb-1"><i class="fa-solid fa-language text-amber-600 mr-1"></i> Hinglish Explanation:</strong>
+                                ${item.hinglish}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+
+            updateScoreDisplay();
+        }
+
+        function selectOption(qId, optIdx) {
+            if (userAnswers[qId] !== undefined) return;
+            userAnswers[qId] = optIdx;
+            renderMCQs();
+        }
+
+        function updateScoreDisplay() {
+            let score = 0;
+            let attempted = Object.keys(userAnswers).length;
+            mcqData.forEach(q => {
+                if (userAnswers[q.id] === q.correct) {
+                    score++;
+                }
+            });
+            document.getElementById('score-display').textContent = score;
+            document.getElementById('attempted-display').textContent = attempted;
+        }
+
+        function filterMCQs(co) {
+            currentFilter = co;
+            document.querySelectorAll('.co-filter-btn').forEach(btn => {
+                btn.className = "co-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+            });
+            document.getElementById('filter-' + co).className = "co-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition";
+            renderMCQs();
+        }
+
+        function revealAllExplanations() {
+            mcqData.forEach(q => {
+                if (userAnswers[q.id] === undefined) {
+                    userAnswers[q.id] = q.correct;
+                }
+            });
+            renderMCQs();
+        }
+
+        function resetQuiz() {
+            userAnswers = {};
+            renderMCQs();
+        }
+
+        function switchMainTab(sectionId) {
+            const mcqSec = document.getElementById('mcq-section');
+            const descSec = document.getElementById('descriptive-section');
+            const tabMcq = document.getElementById('tab-mcq-section');
+            const tabDesc = document.getElementById('tab-descriptive-section');
+
+            if (sectionId === 'mcq-section') {
+                mcqSec.classList.remove('hidden');
+                descSec.classList.add('hidden');
+                tabMcq.className = "px-5 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 bg-indigo-600 text-white shadow-sm transition whitespace-nowrap";
+                tabDesc.className = "px-5 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200 transition whitespace-nowrap";
+            } else {
+                mcqSec.classList.add('hidden');
+                descSec.classList.remove('hidden');
+                tabDesc.className = "px-5 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 bg-indigo-600 text-white shadow-sm transition whitespace-nowrap";
+                tabMcq.className = "px-5 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200 transition whitespace-nowrap";
+            }
+        }
+
+        function jumpToQ4() {
+            switchMainTab('descriptive-section');
+            setTimeout(() => {
+                document.getElementById('desc-q4').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        // Initial Render
+        renderMCQs();
+    </script>
+</body>
+</html>
