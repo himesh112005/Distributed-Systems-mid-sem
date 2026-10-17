@@ -33,6 +33,7 @@ An interactive, modern study portal and exam preparation platform for **BTCOE703
   - **Q3:** Detailed 10-Step RPC Architecture & Sequence Flow
   - **Q4:** Distributed Shared Memory (DSM) Architecture (Page-based vs Object-based with side-by-side SVG comparisons)
   - **Q5:** Core DSM Design Challenges (Granularity, False Sharing, Consistency, Thrashing)
+- **🌓 Instant Dark Mode:** Sleek, high-contrast dark theme with system preference auto-detection, persistent local storage state, and smooth transitions.
 - **📱 Fully Responsive UI:** Built with Tailwind CSS and FontAwesome, looks clean on both mobile phones and desktop displays.
 
 ---

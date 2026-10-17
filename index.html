@@ -12,12 +12,32 @@
     <meta property="og:url" content="https://himesh-raghuwanshi.vercel.app/">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <script>
+        // Check saved theme or system preference immediately to prevent flash
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
+            color: #1e293b;
+            transition: background-color 0.25s ease, color 0.25s ease;
         }
         .option-btn {
             transition: all 0.2s ease-in-out;
@@ -33,6 +53,216 @@
             background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
             border-left: 4px solid #f59e0b;
         }
+
+        /* ================= DARK MODE COMPREHENSIVE STYLING ================= */
+        html.dark body {
+            background-color: #0b0f19;
+            color: #f1f5f9;
+        }
+
+        html.dark .bg-white {
+            background-color: #111827 !important;
+            color: #f1f5f9;
+        }
+
+        html.dark .bg-slate-50 {
+            background-color: #161f30 !important;
+            color: #cbd5e1 !important;
+        }
+
+        html.dark .bg-slate-100 {
+            background-color: #1e293b !important;
+            color: #cbd5e1 !important;
+        }
+
+        html.dark .bg-slate-100:hover,
+        html.dark .hover\:bg-slate-200:hover {
+            background-color: #334155 !important;
+            color: #ffffff !important;
+        }
+
+        html.dark .bg-amber-100 {
+            background-color: rgba(245, 158, 11, 0.15) !important;
+            color: #fef08a !important;
+            border-color: rgba(245, 158, 11, 0.35) !important;
+        }
+
+        html.dark .bg-amber-100:hover {
+            background-color: rgba(245, 158, 11, 0.25) !important;
+        }
+
+        html.dark .bg-amber-50 {
+            background-color: rgba(245, 158, 11, 0.12) !important;
+            color: #fde047 !important;
+            border-color: rgba(245, 158, 11, 0.3) !important;
+        }
+
+        html.dark .bg-amber-50:hover {
+            background-color: rgba(245, 158, 11, 0.2) !important;
+        }
+
+        html.dark .border-slate-200 {
+            border-color: #1e293b !important;
+        }
+
+        html.dark .border-slate-300 {
+            border-color: #334155 !important;
+        }
+
+        html.dark .text-slate-800 {
+            color: #f8fafc !important;
+        }
+
+        html.dark .text-slate-700 {
+            color: #cbd5e1 !important;
+        }
+
+        html.dark .text-slate-600 {
+            color: #94a3b8 !important;
+        }
+
+        html.dark .text-slate-500 {
+            color: #94a3b8 !important;
+        }
+
+        html.dark .text-slate-400 {
+            color: #64748b !important;
+        }
+
+        html.dark .text-indigo-900,
+        html.dark .text-indigo-800,
+        html.dark .text-indigo-700 {
+            color: #a5b4fc !important;
+        }
+
+        html.dark .text-amber-950,
+        html.dark .text-amber-900 {
+            color: #fef08a !important;
+        }
+
+        html.dark .text-emerald-950,
+        html.dark .text-emerald-900 {
+            color: #a7f3d0 !important;
+        }
+
+        html.dark .bg-indigo-50\/70,
+        html.dark .bg-indigo-50 {
+            background-color: rgba(30, 27, 75, 0.55) !important;
+            border-color: #3730a3 !important;
+            color: #e0e7ff !important;
+        }
+
+        html.dark .bg-amber-50\/60 {
+            background-color: rgba(69, 26, 3, 0.35) !important;
+            border-color: #78350f !important;
+        }
+
+        html.dark .bg-emerald-50\/60 {
+            background-color: rgba(6, 78, 59, 0.35) !important;
+            border-color: #065f46 !important;
+        }
+
+        html.dark .hinglish-box {
+            background: linear-gradient(135deg, rgba(69, 26, 3, 0.35) 0%, rgba(28, 25, 23, 0.7) 100%) !important;
+            border-left: 4px solid #f59e0b !important;
+            color: #fde68a !important;
+        }
+
+        html.dark .hinglish-box strong {
+            color: #fcd34d !important;
+        }
+
+        /* Option buttons in quiz */
+        html.dark .option-btn {
+            background-color: #161f30 !important;
+            border-color: #334155 !important;
+            color: #e2e8f0 !important;
+        }
+
+        html.dark .option-btn:hover:not(:disabled) {
+            background-color: #243048 !important;
+            border-color: #6366f1 !important;
+        }
+
+        html.dark .option-btn span.rounded-full.bg-white {
+            background-color: #0f172a !important;
+            border-color: #475569 !important;
+            color: #94a3b8 !important;
+        }
+
+        html.dark .option-btn.border-emerald-500,
+        html.dark .bg-emerald-50 {
+            background-color: rgba(6, 78, 59, 0.45) !important;
+            border-color: #10b981 !important;
+            color: #a7f3d0 !important;
+        }
+
+        html.dark .option-btn.border-rose-500,
+        html.dark .bg-rose-50 {
+            background-color: rgba(136, 19, 55, 0.45) !important;
+            border-color: #f43f5e !important;
+            color: #fecdd3 !important;
+        }
+
+        /* Table styles in dark mode */
+        html.dark table {
+            border-color: #334155 !important;
+        }
+
+        html.dark th {
+            border-color: #334155 !important;
+            background-color: #0f172a !important;
+        }
+
+        html.dark td {
+            border-color: #334155 !important;
+            color: #cbd5e1 !important;
+        }
+
+        html.dark td.bg-slate-50 {
+            background-color: #1e293b !important;
+            color: #f1f5f9 !important;
+        }
+
+        html.dark .divide-y > * {
+            border-color: #334155 !important;
+        }
+
+        /* Sticky nav bar in dark mode */
+        html.dark .sticky {
+            background-color: #0f172a !important;
+            border-color: #1e293b !important;
+        }
+
+        /* SVG Diagram Containers in Dark Mode */
+        html.dark .diagram-container {
+            background-color: #080d19 !important;
+            border-color: #1e293b !important;
+        }
+
+        html.dark .diagram-container text[fill="#1e1b4b"] { fill: #c7d2fe; }
+        html.dark .diagram-container text[fill="#312e81"] { fill: #e0e7ff; }
+        html.dark .diagram-container text[fill="#334155"] { fill: #f1f5f9; }
+        html.dark .diagram-container text[fill="#64748b"] { fill: #94a3b8; }
+        html.dark .diagram-container text[fill="#78350f"] { fill: #fde68a; }
+        html.dark .diagram-container text[fill="#92400e"] { fill: #fde68a; }
+        html.dark .diagram-container text[fill="#14532d"] { fill: #a7f3d0; }
+        html.dark .diagram-container text[fill="#166534"] { fill: #86efac; }
+        html.dark .diagram-container text[fill="#881337"] { fill: #fecdd3; }
+        html.dark .diagram-container text[fill="#9f1239"] { fill: #fda4af; }
+        html.dark .diagram-container text[fill="#475569"] { fill: #cbd5e1; }
+        html.dark .diagram-container text[fill="#4338ca"] { fill: #a5b4fc; }
+        html.dark .diagram-container text[fill="#b45309"] { fill: #fcd34d; }
+        html.dark .diagram-container rect[fill="#ffffff"] { fill: #1a2234; stroke: #475569; }
+        html.dark .diagram-container rect[fill="#f1f5f9"] { fill: #0f172a; stroke: #334155; }
+        html.dark .diagram-container rect[fill="#eef2ff"] { fill: #1e1b4b; stroke: #6366f1; }
+        html.dark .diagram-container rect[fill="#c7d2fe"] { fill: #312e81; stroke: #818cf8; }
+        html.dark .diagram-container rect[fill="#e0e7ff"] { fill: #1e1b4b; stroke: #4f46e5; }
+        html.dark .diagram-container rect[fill="#fde68a"] { fill: #451a03; stroke: #d97706; }
+        html.dark .diagram-container rect[fill="#fef3c7"] { fill: #291804; stroke: #b45309; }
+        html.dark .diagram-container rect[fill="#bbf7d0"] { fill: #064e3b; stroke: #10b981; }
+        html.dark .diagram-container rect[fill="#dcfce7"] { fill: #064e3b; stroke: #059669; }
+        html.dark .diagram-container circle[fill="#ffe4e6"] { fill: #4c0519; stroke: #f43f5e; }
     </style>
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col">
@@ -52,6 +282,12 @@
                     </div>
                 </div>
                 <div class="flex flex-wrap items-center gap-3">
+                    <!-- Theme Toggle Button -->
+                    <button id="theme-toggle-btn" onclick="toggleTheme()" class="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-xl text-xs font-semibold backdrop-blur-sm border border-white/15 transition shadow-sm cursor-pointer select-none" title="Toggle Light / Dark Mode" aria-label="Toggle Theme">
+                        <i id="theme-icon" class="fa-solid fa-moon text-amber-300 text-sm"></i>
+                        <span id="theme-text" class="hidden sm:inline">Dark</span>
+                    </button>
+
                     <!-- Author links -->
                     <div class="flex items-center gap-2">
                         <a href="https://github.com/himesh112005" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-xl text-xs font-semibold backdrop-blur-sm border border-white/15 transition shadow-sm" title="GitHub Profile: @himesh112005">
@@ -1430,6 +1666,25 @@
             }
         }
 
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            try {
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            } catch (e) {}
+            updateThemeUI(isDark);
+        }
+
+        function updateThemeUI(isDark) {
+            const icon = document.getElementById('theme-icon');
+            const text = document.getElementById('theme-text');
+            if (icon) {
+                icon.className = isDark ? 'fa-solid fa-sun text-amber-300 text-sm' : 'fa-solid fa-moon text-blue-200 text-sm';
+            }
+            if (text) {
+                text.textContent = isDark ? 'Light' : 'Dark';
+            }
+        }
+
         function jumpToQ4() {
             switchMainTab('descriptive-section');
             setTimeout(() => {
@@ -1439,6 +1694,7 @@
 
         // Initial Render
         renderMCQs();
+        updateThemeUI(document.documentElement.classList.contains('dark'));
     </script>
 </body>
 </html>
